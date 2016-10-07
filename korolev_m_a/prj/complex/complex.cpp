@@ -1,26 +1,19 @@
 #include <iostream>
 #include <sstream>
+
 #include "complex.h"
 
-Complex operator+(const Complex& lhs, const Complex& rhs);
-Complex operator-(const Complex& lhs, const Complex& rhs);
-
-Complex::Complex(const double real)
-    : Complex(real, 0.0)
-{
-}
-
-Complex::Complex(const double real, const double imaginary)
-    : re(real)
-    , im(imaginary)
-{
-}
 
 Complex& Complex::operator+=(const Complex& rhs)
 {
     re += rhs.re;
     im += rhs.im;
     return *this;
+}
+
+Complex& Complex::operator+=(const double rhs)
+{
+    return operator+=(Complex(rhs));
 }
 
 Complex& Complex::operator-=(const Complex& rhs)
@@ -30,57 +23,99 @@ Complex& Complex::operator-=(const Complex& rhs)
     return *this;
 }
 
-Complex operator+(const Complex& lhs, const Complex& rhs)
+Complex& Complex::operator-=(const double rhs)
 {
-    Complex sum(lhs);
-    sum += rhs;
-    return sum;
+    return operator-=(Complex(rhs));
 }
 
-Complex operator-(const Complex& lhs, const Complex& rhs)
+Complex& Complex::operator*=(const Complex& rhs)
 {
-    return Complex(lhs.re - rhs.re, lhs.im - rhs.im);
-}
+    double re0(re);
+    re = re * rhs.re - im * rhs.im;
+    im = re0 * rhs.im + im * rhs.re;
+    return *this;
+};
 
 Complex& Complex::operator*=(const double rhs)
 {
     re *= rhs;
     im *= rhs;
     return *this;
-}
+};
 
-Complex& Complex::operator*=(const Complex& rhs)
+Complex& Complex::operator/=(const double rhs)
 {
-    double newRe(re*rhs.re - im*rhs.im);
-    double newIm(re*rhs.im + im*rhs.re);
-    re = newRe;
-    im = newIm;
+    if (rhs < 1E-6)
+        re /= rhs;
+    im /= rhs;
     return *this;
 }
 
-Complex& Complex::operator/=(const Complex& rhs)
+Complex operator+(const Complex& lhs, const Complex& rhs)
 {
-    double newRe((re*rhs.re + im*rhs.im) / (rhs.im*rhs.im + rhs.re*rhs.re));
-    double newIm((rhs.re*im - re*rhs.im) / (rhs.im*rhs.im + rhs.re*rhs.re));
-    re = newRe;
-    im = newIm;
-    return *this;
+    Complex answer(lhs);
+    return answer += rhs;
+};
+
+Complex operator-(const Complex& lhs, const Complex& rhs)
+{
+    Complex answer(lhs);
+    return answer -= rhs;
+};
+
+Complex operator*(const Complex& lhs, const Complex& rhs)
+{
+    Complex answer(lhs);
+    return answer *= rhs;
+};
+
+Complex operator+(const Complex& lhs, const double rhs)
+{
+    Complex ans{ lhs };
+    ans += Complex{ rhs, 0 };
+    return ans;
+};
+
+Complex operator-(const Complex& lhs, const double rhs)
+{
+    Complex ans{ lhs };
+    ans -= Complex{ rhs, 0 };
+    return ans;
+};
+
+Complex operator*(const Complex& lhs, const double rhs)
+{
+    Complex ans{ lhs };
+    ans *= Complex{ rhs, 0 };
+    return ans;
+};
+
+Complex operator/(const Complex& lhs, const double rhs)
+{
+    Complex ans{ lhs };
+    ans /= rhs;
+    return ans;
+};
+
+std::ostream& operator<<(std::ostream& ostrm, const Complex& rhs)
+{
+    return rhs.writeTo(ostrm);
 }
 
-Complex& Complex::operator/(const Complex& rhs)
+std::istream& operator >> (std::istream& istrm, Complex& rhs)
 {
-    return (*this /= rhs);
+    return rhs.readFrom(istrm);
 }
 
-Complex& Complex::dual()
+Complex::Complex(const double real)
+    : Complex(real, 0.0)
 {
-    return Complex(re, -im);
 }
 
-Complex& Complex::dual(const Complex& rhs)
-{
-    return Complex(rhs.re, -rhs.im);
-}
+Complex::Complex(const double real, const double imaginary)
+    : re(real)
+    , im(imaginary)
+{ }
 
 std::ostream& Complex::writeTo(std::ostream& ostrm) const
 {
@@ -101,13 +136,13 @@ std::istream& Complex::readFrom(std::istream& istrm)
             && (Complex::rightBrace == rightBrace)) {
             re = real;
             im = imaganary;
-            
+
         }
         else {
             istrm.setstate(std::ios_base::failbit);
 
-		}
+        }
 
-	}
+    }
     return istrm;
 }

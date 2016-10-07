@@ -1,61 +1,59 @@
-#include "complex.h"
 #include <iostream>
+#include <sstream>
+#include "complex.h"
 
-inline std::ostream& operator<<(std::ostream& ostrm, const Complex& rhs)
-{
-    return rhs.writeTo(ostrm);
-}
-
-inline std::istream& operator>>(std::istream& istrm, Complex& rhs)
-{
-    return rhs.readFrom(istrm);
-}
+using namespace std;
 
 bool testParse(const std::string& str)
 {
-    using namespace std;
-    istringstream istrm(str);
-    Complex z;
-    istrm >> z;
+    std::istringstream istrm(str);
+    Complex ñ;
+    istrm >> ñ;
     if (istrm.good()) {
-        cout << "Read success: " << str << " -> " << z << endl;
-
+        cout << "Read success: " << str << " -> " << ñ << endl;
     }
     else {
-        cout << "Read error : " << str << " -> " << z << endl;
-	}
+        cout << "Read error : " << str << " -> " << ñ << endl;
+    }
     return istrm.good();
 }
-int main()
+
+void runArufmeticsTests(Complex a, Complex b)
 {
-    using namespace std;
-    
-    Complex z;
-    z += Complex(8.0);
+    cout << "Arifmetics tests: " << endl;
+    Complex ñ{ a }, k{ b };
+
+    cout << "Ñ = " << ñ << "; Ñ += {8, 2}; Ñ = ";
+    ñ += Complex{ 8, 2 };
+    cout << ñ << endl;
+
+    cout << k << " + " << ñ << " = " << (k + ñ) << endl;
+    cout << k << " - " << ñ << " = " << (k - ñ) << endl;
+    cout << k << " * " << ñ << " = " << (k * ñ) << endl;
+    cout << k << " equal to " << ñ << " = " << (k == ñ) << endl;
+    cout << k << " not equal to " << ñ << " = " << (k != ñ) << endl;
+
+    cout << k << " + " << 3 << " = " << (k + 3) << endl;
+    cout << k << " - " << 5 << " = " << (k - 5) << endl;
+    cout << k << " * " << 2 << " = " << (k * 2) << endl << endl;
+}
+
+void runParseTest()
+{
+    cout << endl << "Parse tests: " << endl;
+
     testParse("{8.9,9}");
     testParse("{8.9, 9}");
     testParse("{8.9,9");
-    Complex first(8, 1);
-    Complex second(7, 3);
-    cout << first << "-=" << second;
-    first -= second;
-    cout << "=" << first << endl;
-    cout << first << "*=" << second << "=";
-    first *= second;
-    cout << first << endl;
-    Complex dualFirst(Complex::dual(first));
-    cout << "dual for first" << dualFirst << endl;
-    Complex dualSecond = second.dual();
-    cout << "dual for second" << dualSecond << endl;
-    cout << first << "/=" << second << "=";
-    first /= second;
-    cout << first << endl;
-    cout << first << "/" << second << "=";
-    Complex newComp(first / second);
-    cout << newComp << endl;
-    cout << first << "==" << second << " result:" << (first == second);
-    cout << first << "!=" << second << " result:" << (first != second);
-	return 0;
-}  
+}
 
+int main()
+{
+    runArufmeticsTests({ 1,1 }, { 8, 2 });
 
+    cout << endl;
+
+    runParseTest();
+
+    return 0;
+}
