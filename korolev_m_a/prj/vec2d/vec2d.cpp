@@ -4,71 +4,71 @@
 #include <sstream>
 Vec2d& Vec2d::operator+=(const Vec2d& rhs)
 {
-	x_ += rhs.x_;
-	y_ += rhs.y_;
-	return *this;
+    x_ += rhs.x_;
+    y_ += rhs.y_;
+    return *this;
 }
 
 Vec2d & Vec2d::operator==(const Vec2d & rhs)
 {
-	return (x_ == rhs.x_ && y_ == rhs.y_);
+    return (x_ == rhs.x_ && y_ == rhs.y_);
 }
 
 bool Vec2d::operator!=(const Vec2d & rhs)
 {
-	return (x_ != rhs.x_ && y_ != rhs.y_);
+    return (x_ != rhs.x_ && y_ != rhs.y_);
 }
 
 Vec2d& Vec2d::operator-=(const Vec2d& rhs)
 {
-	x_ -= rhs.x_;
-	y_ -= rhs.y_;
-	return *this;
+    x_ -= rhs.x_;
+    y_ -= rhs.y_;
+    return *this;
 }
 
 Vec2d& Vec2d::operator+(const Vec2d& rhs)
 {
-	return Vec2d(x_ + rhs.x_, y_ + rhs.y_);
+    return Vec2d(x_ + rhs.x_, y_ + rhs.y_);
 }
 
 Vec2d& Vec2d::operator-(const Vec2d& rhs)
 {
-	return Vec2d(x_ - rhs.x_, y_ - rhs.y_);
+    return Vec2d(x_ - rhs.x_, y_ - rhs.y_);
 }
 
 bool Vec2d::operator<(const Vec2d& rhs)
 {
-	return (abs() - rhs.abs()) > 0;
+    return (abs() - rhs.abs()) > 0;
 }
 
 std::ostream& Vec2d::writeTo(std::ostream& ostrm)
 {
-	ostrm << "x: " << x_ << " ; y: " << y_;
-	return ostrm;
+    ostrm << "x: " << x_ << " ; y: " << y_;
+    return ostrm;
 }
 
 double Vec2d::operator*(const Vec2d& rhs)
 {
-	return x_*rhs.x_ + y_*rhs.y_;
+    return x_*rhs.x_ + y_*rhs.y_;
 }
 
 Vec2d & Vec2d::operator*(int k)
 {
-	return Vec2d(x_*k, y_*k);
+    return Vec2d(x_*k, y_*k);
 }
 
 double Vec2d::operator[](const int index) const
 {
-	if (!index)
-	{
-		return x_;
-	}
-	else if (index)return y_;
+    if (!index)
+    {
+        return x_;
+    }
+    else if (index)return y_;
 }
 
 double Vec2d::abs() const
 {
-	return sqrt(x_*x_ + y_*y_);
+    return sqrt(x_*x_ + y_*y_);
 }
 
 Vec2d::Vec2d()
