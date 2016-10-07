@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 using namespace std;
+
 int main() {
 	Rational a(3, 4);
 	Rational b(6, 8);
@@ -13,15 +14,15 @@ int main() {
 	Rational g(8, 15);
 	Rational h(6, 25);
 	bool flag;
-	cout << "a =" << a << "b = " << b << "c =" << c << "d = " << d << "e = " << e << "f = " << f << "g = " << g << "h = " << h;
+	cout << "a =" << a << "b = " << b << "c =" << c << "d = " << d << "e = " << e << "f = " << f << "g = " << g << "h = " << h << endl;
 	flag = a > b;
-	cout << flag;
+    cout << flag << endl;
 	flag = a < b;
-	cout << flag;
+	cout << flag << endl;
 	flag = a != b;
-	cout << flag;
+	cout << flag << endl;
 	flag = a == a;
-	cout << flag;
+	cout << flag << endl;
 	Rational(a1) = a + b;
 	a += b;
 	Rational(a2) = c * d;
@@ -30,12 +31,12 @@ int main() {
 	e /= f;
 	Rational(a4) = g - h;
 	g -= h;
-	cout << "a+b = " << a1;
-	cout << "a+=b " << a;
-	cout << "c*d = " << a2;
-	cout << "c*=d " << c;
-	cout << "e/f = " << a3;
-	cout << "e/=f " << e;
-	cout << "g-h = " << a4;
-	cout << "g-=h " << g;
+	cout << "a+b = " << a1 << endl;
+	cout << "a+=b " << a << endl;
+	cout << "c*d = " << a2 << endl;
+	cout << "c*=d " << c << endl;
+	cout << "e/f = " << a3 << endl;
+	cout << "e/=f " << e << endl;
+	cout << "g-h = " << a4 << endl;
+	cout << "g-=h " << g << endl;
 };
