@@ -18,7 +18,7 @@ bool testParse(const std::string& str)
     return istrm.good();
 }
 
-void runArufmeticsTests(Complex a, Complex b)
+void runArifmeticsTests(Complex a, Complex b)
 {
     cout << "Arifmetics tests: " << endl;
     Complex ñ{ a }, k{ b };
@@ -49,7 +49,7 @@ void runParseTest()
 
 int main()
 {
-    runArufmeticsTests({ 1,1 }, { 8, 2 });
+    runArifmeticsTests({ 1,1 }, { 8, 2 });
 
     cout << endl;
 

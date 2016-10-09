@@ -1,7 +1,7 @@
-#include "rational.h"
-#include <cstdint>
 #include <iostream>
 #include <sstream>
+#include "rational.h"
+
 using namespace std;
 
 int main() {
