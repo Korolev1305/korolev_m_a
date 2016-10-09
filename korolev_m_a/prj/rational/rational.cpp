@@ -1,4 +1,3 @@
-#include <iostream>
 #include <sstream>
 #include "rational.h"
 
@@ -44,28 +43,30 @@ Rational Rational::normalize(const Rational a)
 Rational& Rational::operator+=(const Rational& a) {
 	num_ = (num_*a.denum_) + (a.num_ * denum_);
 	denum_ = denum_ * a.denum_;
-	Rational z = normalize(Rational(num_, denum_));
-	return z;
+    Rational ans(num_, denum_);
+	return normalize(ans);
 }
 
 Rational& Rational::operator-=(const Rational& a) {
 	num_ = num_*a.denum_ - a.num_ * denum_;
 	denum_ = denum_ * a.denum_;
-	return normalize(Rational(num_, denum_));;
+    Rational ans(num_, denum_);
+    return normalize(ans);
 }
 
 Rational Rational::operator/=(const Rational& a) {
 	num_ = num_*a.denum_;
 	denum_ = denum_*a.num_;
-	Rational z = normalize(Rational(num_, denum_));
-	return z;
+    Rational ans(num_, denum_);
+    return normalize(ans);
+
 }
 
 Rational Rational::operator*=(const Rational& a) {
 	num_ = num_*a.num_;
 	denum_ = denum_ * a.denum_;
-	Rational z = normalize(Rational(num_, denum_));
-	return z;
+    Rational ans(num_, denum_);
+    return normalize(ans);
 }
 
 bool Rational::operator==(const Rational& a) const { return (num_ - a.num_ < 1E-6) && (denum_ - a.denum_ < 1E-6); }
@@ -91,8 +92,9 @@ Rational Rational::operator- (const Rational& a)
 	return normalize(z);
 };
 
-std::ostream& Rational::writeTo(std::ostream& ostrm) const {
-    ostrm << num_ << "/" << denum_ << "\n";
+std::ostream& Rational::writeTo(std::ostream& ostrm) const
+{
+    ostrm << num_ << "/" << denum_;
     return ostrm;
 }
 
@@ -100,7 +102,5 @@ std::istream& Rational::readFrom(std::istream& istrm) {
     return istrm;
 }
 
-inline std::ostream& operator<<(std::ostream& ostrm, const Rational& a) { return a.writeTo(ostrm); }
-inline std::istream& operator>>(std::istream& istrm, Rational& rhs) { return rhs.readFrom(istrm); }
-
-
+std::ostream& operator<<(std::ostream& ostrm, const Rational& a) { return a.writeTo(ostrm); }
+std::istream& operator>>(std::istream& istrm, Rational& a) { return a.readFrom(istrm); }
