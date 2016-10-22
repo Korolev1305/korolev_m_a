@@ -1,19 +1,21 @@
 #include "vec2d.h"
 #include <iostream>
 
-inline std::ostream& operator<<(std::ostream& ostrm, Vec2d& rhs)
+using namespace std;
+
+std::ostream& operator<<(std::ostream& ostrm, Vec2d& rhs)
 {
     return rhs.writeTo(ostrm);
 }
 
-inline std::istream& operator>>(std::istream& istrm, Vec2d& rhs)
+std::istream& operator>>(std::istream& istrm, Vec2d& rhs)
 {
     return rhs.readFrom(istrm);
 }
 
-bool testParse(const std::string& str)
+/*bool testParse(const std::string& str)
 {
-    using namespace std;
+
     istringstream istrm(str);
     Vec2d z;
     istrm >> z;
@@ -24,11 +26,10 @@ bool testParse(const std::string& str)
         cout << "Read error : " << str << " -> " << z << endl;
     }
     return istrm.good();
-}
+}*/
 
 int main()
 {
-    using namespace std;
     Vec2d a(7, 7);
     Vec2d b(9, 9);
     a += b;
@@ -44,7 +45,6 @@ int main()
     cout << "a[1]=" << a[1];
     cout << a << "<" << b << " result:" << (a < b) << endl;
     cout << a << "!=" << b << " result:" << (a != b) << endl;
-    //cin >> a;
 	return 0;
 }
 

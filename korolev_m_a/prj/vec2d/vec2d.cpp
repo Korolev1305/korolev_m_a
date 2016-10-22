@@ -9,12 +9,12 @@ Vec2d& Vec2d::operator+=(const Vec2d& rhs)
     return *this;
 }
 
-Vec2d & Vec2d::operator==(const Vec2d & rhs)
+bool Vec2d::operator==(const Vec2d & rhs) const
 {
-    return (x_ == rhs.x_ && y_ == rhs.y_);
+    return ( (x_ - rhs.x_ < 1E-6)&& (y_ - rhs.y_));
 }
 
-bool Vec2d::operator!=(const Vec2d & rhs)
+bool Vec2d::operator!=(const Vec2d & rhs) const
 {
     return (x_ != rhs.x_ && y_ != rhs.y_);
 }
@@ -83,7 +83,7 @@ Vec2d::Vec2d(const double x, const double y)
 
 Vec2d::~Vec2d() {}
 
-std::istream& Vec2d::readFrom(std::istream& istrm) const
+std::istream& Vec2d::readFrom(std::istream& istrm) 
 {
 	char leftBrace(0);
 	double x_(0.0);
