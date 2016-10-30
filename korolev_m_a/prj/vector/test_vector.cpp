@@ -4,14 +4,41 @@
 using namespace std;
 
 int main() {
-    Vector vector(7);
-    for (int i = 0;i < 7;i++) {
-        vector[i] = i;
+    cout << "create vector with size =10" << endl;
+    Vector vector(10);
+    int val(0);
+    for (ptrdiff_t i(0); i < 10; ++i) {
+        vector.add(val);
+        val += 1;
     }
-    cout << "Создаем новый вектор размера 7"<< endl;
-    cout << vector << endl;
-    cout << "Копирование старого вектора в новый" << endl;
+    cout << vector << endl << endl;
+    double a = vector[1];
+    cout << "vector[1]=" << a << endl;
+
+    try {
+        cout << "try to get twelveth element " << endl;
+        vector[20];
+    }
+    catch (out_of_range)
+    {
+        cout << "fail!" << endl;
+    }
+
+    cout << endl;
+
+    cout << "create new vector and copy last vector to new vector" << endl;
     Vector newVector;
     newVector = vector;
     cout << newVector << endl;
+    cout << endl;
+    cout << "decrease size to 7 " << endl;
+    newVector.resize(7);
+    cout << newVector << endl;
+    cout << endl;
+    cout << "increase size to 10 " << endl;
+    newVector.resize(10);
+    cout << newVector << endl;
+    int k;
+    cin >> k;
+    return 0;
 }
