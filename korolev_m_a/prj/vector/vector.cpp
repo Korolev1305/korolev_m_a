@@ -1,10 +1,7 @@
 #include "vector.h"
 
-Vector::Vector() {
-    vec = new int[0];
-    size = 0;
-    length = 0;
-}
+Vector::Vector() = default; 
+
 
 Vector::~Vector() {
     delete[] vec; vec = nullptr;
