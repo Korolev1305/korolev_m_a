@@ -1,11 +1,7 @@
 #include "matrix2d.h"
 #include <iostream>
 
-Matrix::Matrix() {
-    matrix = new int[0];
-    size_lines = 0;
-    size_columns = 0;
-}
+Matrix::Matrix() = default;
 
 Matrix::~Matrix() {
     delete[] matrix; 
