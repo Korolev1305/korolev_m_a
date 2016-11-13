@@ -49,7 +49,5 @@ int main()
     cout << "Copy stack b in b  and write" << endl;
     b = b;
     cout << b << endl;
-    int k;
-    cin >> k;
     return 0;
 }
