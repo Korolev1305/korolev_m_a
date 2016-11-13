@@ -8,13 +8,9 @@ public:
     Matrix(const Matrix& obj);
     Matrix(const ptrdiff_t size_lines, const ptrdiff_t size_columns);
     ~Matrix();
-    const ptrdiff_t init_lines();
-    const ptrdiff_t init_columns();
     Matrix& operator=(const Matrix& obj);
-    ptrdiff_t& Matrix::at(const ptrdiff_t size_lines, const ptrdiff_t size_columns);
+    ptrdiff_t& at(const ptrdiff_t size_lines, const ptrdiff_t size_columns);
     const ptrdiff_t& Matrix::at(const ptrdiff_t size_lines, const ptrdiff_t size_columns) const;
-    int& operator[](const ptrdiff_t idx);
-    const int& operator[](const ptrdiff_t idx)const;
     std::ostream& writeTo(std::ostream& ostrm);
 private:
     int* matrix = nullptr;

@@ -3,13 +3,14 @@
 
 Matrix::Matrix() = default;
 
-Matrix::~Matrix() {
+Matrix::~Matrix()
+{
     delete[] matrix; 
     matrix = nullptr;
 }
 
 Matrix::Matrix(const ptrdiff_t size_lines, const ptrdiff_t size_columns)
-    :size_lines{ size_lines }
+    : size_lines{ size_lines }
     , size_columns{ size_columns }
 {
     if ((size_lines < 0) || (size_columns < 0)) {
@@ -25,39 +26,18 @@ Matrix::Matrix(const Matrix& obj)
 
 Matrix& Matrix::operator=(const Matrix& obj) {
     if (this != &obj) {
+        int* newData(new int[obj.size_columns*obj.size_lines]);
+        for (int i = 0; i < size_lines * size_columns; i++) {
+            newData[i] = obj.matrix[i];
+        }
         delete[] matrix;
         size_lines = obj.size_lines;
         size_columns = obj.size_columns;
-        matrix = new int[size_lines*size_columns];
-        for (int i = 0; i < size_lines*size_columns; i++) {
-            this->operator[](i) = obj[i];
-        }
+        matrix = newData;
     }
     return *this;
 }
 
-const ptrdiff_t Matrix::init_lines() 
-{
-    return size_lines;
-}
-
-const ptrdiff_t Matrix::init_columns() {
-    return size_columns;
-}
-
-int &Matrix::operator[](const ptrdiff_t idx) {
-    if (idx >= size_lines*size_columns) {
-        throw std::out_of_range("Out of range in matrix");
-    }
-    return *(matrix + idx);
-}
-
-const int &Matrix::operator[](const ptrdiff_t idx) const {
-    if (idx >= size_lines*size_columns) {
-        throw std::out_of_range("Out of range in matrix");
-    }
-    return *(matrix + idx);
-}
 
 ptrdiff_t& Matrix::at(const ptrdiff_t i, const ptrdiff_t j) {
     if (i < 0 || j < 0) {

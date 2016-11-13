@@ -6,33 +6,55 @@ using namespace std;
 int main() {
     const int lines{ 25 };
     const int columns{ 25 };
-    Matrix matrix{ lines, columns };
+    Matrix matrix(lines, columns);
     cout << "Write a matrix 25x25" << endl;
-    for (ptrdiff_t i = 0; i < lines; ++i) {
-        for (ptrdiff_t j = 1; j < columns; ++j) {
-            matrix.at(i, j) = i * j + j;
+    for (int i = 0; i < lines; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            matrix.at(i, j) = i * j;
             cout << matrix.at(i, j) << " ";
         }
         cout << endl;
     }
 
     cout << endl;
-    cout << endl;
 
 
-    Matrix matrix2{ lines, columns };
+    Matrix matrix2(lines, columns);
     cout << "copy matrix in matrix2" << endl;
-    for (int i = 0; i < 100000; ++i) {
-        matrix2 = matrix2;
-        matrix2 = matrix;
-    }
+    matrix2 = matrix;
 
-    for (ptrdiff_t i = 0; i < lines; ++i) {
-        for (ptrdiff_t j = 1; j < columns; ++j) {
+    for (int i = 0; i < lines; ++i) {
+        for (int j = 0; j < columns; ++j) {
             cout << matrix2.at(i, j) << " ";
         }
         cout << endl;
     }
 
-    return 0;
+    cout << "Try to use wrong size\n";
+    try {
+        Matrix matrix3(5, -4);
+    }
+    catch (invalid_argument) {
+        cout << "Exception cathed.\n";
+    }
+
+    cout << "Try to use wrong index\n";
+    try {
+        matrix.at(-1, 4);
+    }
+    catch (invalid_argument) {
+        cout << "Exception catched.\n";
+    }
+
+    cout << "Try to use wrong index\n";
+    try {
+        matrix.at(1000, 4);
+    }
+    catch (invalid_argument) {
+        cout << "Exception catched.\n";
+    }
+        int k;
+        cin >> k;
+        return 0;
+    
 }
