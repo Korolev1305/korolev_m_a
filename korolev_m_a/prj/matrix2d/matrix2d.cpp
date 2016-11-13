@@ -27,7 +27,7 @@ Matrix::Matrix(const Matrix& obj)
 Matrix& Matrix::operator=(const Matrix& obj) {
     if (this != &obj) {
         int* newData(new int[obj.size_columns*obj.size_lines]);
-        for (int i = 0; i < size_lines * size_columns; i++) {
+        for (int i = 0; i < obj.size_lines * obj.size_columns; i++) {
             newData[i] = obj.matrix[i];
         }
         delete[] matrix;

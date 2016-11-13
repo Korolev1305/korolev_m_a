@@ -53,8 +53,6 @@ int main() {
     catch (invalid_argument) {
         cout << "Exception catched.\n";
     }
-        int k;
-        cin >> k;
         return 0;
     
 }
