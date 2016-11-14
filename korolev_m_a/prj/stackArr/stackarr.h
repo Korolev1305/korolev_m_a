@@ -1,5 +1,5 @@
-#ifndef STACKARR_H_20161031
-#define STACKARR_H_20151031
+#ifndef HG_STACKARR_H_20161107
+#define HG_STACKARR_H_20161107
 
 #include <iostream>
 
