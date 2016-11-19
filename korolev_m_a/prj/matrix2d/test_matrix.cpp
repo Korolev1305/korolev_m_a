@@ -53,6 +53,7 @@ int main() {
     catch (invalid_argument) {
         cout << "Exception catched.\n";
     }
-        return 0;
+        
+    return 0;
     
 }

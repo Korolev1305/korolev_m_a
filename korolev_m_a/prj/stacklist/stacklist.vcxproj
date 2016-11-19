@@ -118,6 +118,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="stacklist.cpp" />
+    <ClCompile Include="test_stacklist.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stacklist.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

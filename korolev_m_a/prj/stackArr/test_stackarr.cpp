@@ -11,7 +11,7 @@ int main()
     a.push(23);
     a.push(-9);
     a.push(13);
-    cout << "Write a top number" << endl;
+    cout << "Write a top number:13" << endl;
     cout << a.top() << endl;
     a.pop();
     cout << "Remove top number, write a new top number: -9" << endl;
