@@ -5,7 +5,6 @@
 Matrix::~Matrix()
 {
     delete[] matrix; 
-    matrix = nullptr;
 }
 
 Matrix::Matrix(const ptrdiff_t size_lines, const ptrdiff_t size_columns)
@@ -23,10 +22,11 @@ Matrix::Matrix(const Matrix& obj)
     *this = obj;
 }
 
-Matrix& Matrix::operator=(const Matrix& obj) {
+Matrix& Matrix::operator=(const Matrix& obj) 
+{
     if (this != &obj) {
         int* newData(new int[obj.size_columns_ * obj.size_lines_]);
-        for (int i = 0; i < obj.size_lines_ * obj.size_columns_; i++) {
+        for (int i = 0; i < obj.size_lines_ * obj.size_columns_; i += 1) {
             newData[i] = obj.matrix[i];
         }
         delete[] matrix;
@@ -38,31 +38,36 @@ Matrix& Matrix::operator=(const Matrix& obj) {
 }
 
 
-ptrdiff_t& Matrix::at(const ptrdiff_t i, const ptrdiff_t j) {
-    if (i < 0 || j < 0) {
+ptrdiff_t& Matrix::at(const ptrdiff_t i, const ptrdiff_t j)
+{
+    if ((i < 0 || j < 0) && (i >= size_lines_ || j >= size_columns_)) {
         throw std::invalid_argument("Invalid index\n");
     }
     return matrix[i * size_columns_ + j];
 }
 
-const ptrdiff_t& Matrix::at(const ptrdiff_t i, const ptrdiff_t j) const {
-    if (i < 0 || j < 0) {
+const ptrdiff_t& Matrix::at(const ptrdiff_t i, const ptrdiff_t j) const 
+{
+    if ((i < 0 || j < 0) && (i >= size_lines_ || j >= size_columns_)) {
         throw std::invalid_argument("Invalid index\n");
     }
     return matrix[i * size_columns_ + j];
 }
 
-std::ostream& Matrix::writeTo(std::ostream& ostrm) const {
-    for (int i = 0; i < size_lines_; ++i) {
-        for (int j = 0; j < size_columns_; ++j) {
+std::ostream& Matrix::writeTo(std::ostream& ostrm) const 
+{
+    for (int i(0); i < size_lines_; i += 1) {
+        for (int j(0); j < size_columns_; j += 1) {
             ostrm << at(i, j) << " ";
         }
-        ostrm << "\n";
+        ostrm << '\n';
     }
     return ostrm;
 }
 
-std::ostream &operator<<(std::ostream &ostrm, Matrix& obj) {
-    obj.writeTo(ostrm);
-    return ostrm;
+
+
+std::ostream& operator<<(std::ostream& ostrm, const Matrix& a)
+{
+    return a.writeTo(ostrm);
 }
