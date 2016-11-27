@@ -1,7 +1,5 @@
 #include "stackarr.h"
-#include <iostream>
 
-StackArr::StackArr() = default;
 
 void StackArr::push(const int v)
 {

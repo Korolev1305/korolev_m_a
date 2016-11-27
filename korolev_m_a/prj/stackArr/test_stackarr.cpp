@@ -1,5 +1,4 @@
 #include "stackarr.h"
-#include <iostream>
 
 using namespace std;
 
@@ -49,5 +48,8 @@ int main()
     cout << "Copy stack b in b  and write" << endl;
     b = b;
     cout << b << endl;
+    cout << "Copy stack b in d and write d" << endl;
+    StackArr d(b);
+    cout << d << endl;
     return 0;
 }

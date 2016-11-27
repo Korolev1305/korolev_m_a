@@ -11,7 +11,7 @@ private:
     int* data_{ nullptr }; 
 
 public:
-    StackArr();
+    StackArr() = default;
 
 
     ~StackArr();
