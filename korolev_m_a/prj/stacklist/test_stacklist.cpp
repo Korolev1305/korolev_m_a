@@ -39,7 +39,7 @@ int main()
         cout << e.what() << endl;
     }
     c.push(95);
-    cout << "Polozhili v stek c chislo 95! Proveryaem" << endl;
+    cout << "add in stack c 95 and check" << endl;
     cout << c.top() << endl;
     cout << "Copy stack b in c and write them" << endl;
     c = b;
@@ -49,19 +49,21 @@ int main()
     c.push(12);
     b.print();
     c.print();
-    cout << "Stek b != c : " << (b != c) << endl;
-    cout << "Stek b == c : " << (b == c) << endl;
-    cout << "Stek b == b : " << (b == b) << endl;
-    cout << "Stek c == c : " << (c == c) << endl;
+    cout << "Stack b != c : " << (b != c) << endl;
+    cout << "Stack b == c : " << (b == c) << endl;
+    cout << "Stack b == b : " << (b == b) << endl;
+    cout << "Stack c == c : " << (c == c) << endl;
     cout << "add in stack b 12 and write b and c stacks" << endl;
     b.push(12);
     b.print();
     c.print();
-    cout << "Stek b != c : " << (b != c) << endl;
-    cout << "Stek b == c : " << (b == c) << endl;
+    cout << "Stack b != c : " << (b != c) << endl;
+    cout << "Stack b == c : " << (b == c) << endl;
     b = b;
     b.print();
-    int k;
-    cin >> k;
+    c.print();
+    cout << "Copy stack b in d and write d" << endl;
+    StackList d(b);
+    d.print();
     return 0;
 }

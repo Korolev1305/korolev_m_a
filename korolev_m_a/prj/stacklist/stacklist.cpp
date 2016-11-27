@@ -1,6 +1,5 @@
 #include "stacklist.h"
 #include <iostream>
-#include <stdexcept>
 
 
 void StackList::push(const int v)
@@ -100,7 +99,6 @@ bool StackList::operator==(const StackList& a) const
 {
     if (this != &a)
     {
-        bool res = true;
         if (head_->val != a.head_->val)
             return false;
         else
