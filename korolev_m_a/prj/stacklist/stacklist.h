@@ -6,7 +6,7 @@ class StackList
 
 public:
 
-    StackList() {}
+    StackList() = default;
     ~StackList();
 
     void push(const int v); 
@@ -30,7 +30,7 @@ private:
         int val{ 0 };
         node* next{ nullptr };
 
-        node() {}
+        node() = default;
         node(int val_, node *node_)
             : val{ val_ }
             , next{ node_ }
