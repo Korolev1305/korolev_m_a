@@ -13,12 +13,11 @@ class StackArrT
 {
 public:
 
-    StackArrT();
+    StackArrT() = default;
     StackArrT(const StackArrT& starr);
     ~StackArrT();
 
     StackArrT& operator=(const StackArrT& starr);
-    //StackArrT& operator=(StackArrT&& starr);
 
     void push(const T v);
     void pop();
@@ -77,8 +76,6 @@ StackArrT<T>& StackArrT<T>::operator=(const StackArrT<T>& starr)
     }
     return *this;
 }
-
-//template<typename T> StackArrT<T>& StackArrT<T>::operator=(StackArrT<T>&& starr){}
 
 template<typename T>
 void StackArrT<T>::push(const T v)

@@ -1,50 +1,99 @@
 #include "stackarr.h"
 
-using namespace std;
 
-template<class C, typename T = C::value_type>
-void testT(const C& v)
+template<typename T>
+StackArrT<T>::StackArrT(const StackArrT<T>& starr)
+        : size_{ starr.size_ }
+        , iTop{ starr.iTop }
+        , data_{ new T[size_] }
 {
-    if (v.size() < 4)
-        throw logic_error("Not enough elements!");
-    StackArrT<T> a;
-    cout << "StackArrT<T> a; -> isEmpty() -> ";
-    cout << boolalpha << a.isEmpty() << endl;
-    cout << "a.top() -> ";
-    try
-    {
-        a.top();
-    }
-    catch (logic_error& e)
-    {
-        cout << "exception caught (" << e.what() << ')' << endl;
-    }
-    a.push(v[0]);
-    cout << "a.push(" << v[0] << ") -> a.top() -> " << a.top() << endl;
-    cout << "a.isEmpty() -> " << boolalpha << a.isEmpty() << endl;
-    a.push(v[1]);
-    cout << "a.push(" << v[1] << ") -> top() -> " << a.top() << endl;
-    StackArrT<T> b{ a };
-    cout << "StackArrT<T> b{a}: a -> " << a << " b-> " << b << endl;
-    a.push(v[2]);
-    cout << "a.push(" << v[2] << ") -> top() -> " << a.top() << endl;
-    a.push(v[3]);
-    cout << "a.push(" << v[3] << ") -> top() -> " << a.top() << endl;
-    b = a;
-    cout << "b=a : a -> " << a << " b-> " << b << endl;;
-    a.pop();
-    cout << "a.pop() -> a-> " << a << endl;
-    a = a;
-    cout << "a=a : a -> " << a << endl;
+    std::uninitialized_copy(starr.data_, starr.data_ + starr.iTop + 1, data_);
 }
 
-int main()
+template<typename T>
+StackArrT<T>::~StackArrT()
 {
-    cout << "double" << endl;
-    testT(array<double, 4>{{ -8.0, 54.1, 13.2, 6.3 }});
-    cout << "int" << endl;
-    testT(array<int, 4>{{ 1, -4, 3, -6 }});
-    testT(array<string, 4>{{ "s531", "s54434", "s5435343", "s6" }});
-    return 0;
+    delete[] data_;
+    data_ = nullptr;
+}
+
+template<typename T>
+StackArrT<T>& StackArrT<T>::operator=(const StackArrT<T>& starr)
+{
+    if (this != &starr)
+    {
+        if (size_ < starr.size_)
+        {
+            T* pNewData{ new T[starr.size_] };
+            delete[] data_;
+            data_ = pNewData;
+        }
+        std::uninitialized_copy(starr.data_, starr.data_ + starr.iTop + 1, data_);
+        size_ = starr.size_;
+        iTop = starr.iTop;
+    }
+    return *this;
+}
+
+template<typename T>
+void StackArrT<T>::push(const T v)
+{
+    if (iTop == size_ - 1)
+    {
+        T* pNewData{ new T[size_ * 2] };
+        for (size_t i = 0; i < size_; i++)
+        {
+            pNewData[i] = data_[i];
+        }
+        delete[] data_;
+        data_ = pNewData;
+        size_ *= 2;
+    }
+    data_[++iTop] = v;
+}
+
+template<typename T>
+void StackArrT<T>::pop()
+{
+    if (!isEmpty())
+    {
+        iTop -= 1;
+    }
+}
+
+template<typename T>
+bool StackArrT<T>::isEmpty() const
+{
+    return -1 == iTop;
+}
+
+template<typename T>
+T StackArrT<T>::top() const
+{
+    if (isEmpty())
+    {
+        throw logic_error("nothing in stack");
+    }
+    return data_[iTop];
+}
+
+template<typename T>
+std::ostream& StackArrT<T>::print(std::ostream& ostrm) const
+{
+    ostrm << ']';
+    for (size_t i = 0; i <= iTop; i++)
+    {
+        ostrm << data_[i];
+        if (i < iTop)
+            ostrm << ',';
+    }
+    ostrm << ']';
+    return ostrm;
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& ostrm, const StackArrT<T>& v)
+{
+    return v.print(ostrm);
 }
 
