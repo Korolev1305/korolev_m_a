@@ -16,7 +16,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../matrix2d/test_matrix.cpp" afterPath="$PROJECT_DIR$/../matrix2d/test_matrix.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../stackArr/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../stackArr/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stackarr.h" afterPath="$PROJECT_DIR$/stackarr.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../stacklist/test_stacklist.cpp" afterPath="$PROJECT_DIR$/../stacklist/test_stacklist.cpp" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -74,8 +73,8 @@
       <file leaf-file-name="stackarr.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/stackarr.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1071">
-              <caret line="63" column="20" lean-forward="false" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
+            <state relative-caret-position="221">
+              <caret line="13" column="26" lean-forward="true" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
               <folding>
                 <element signature="e#32#44#0" expanded="true" />
                 <element signature="e#280#292#0" expanded="true" />
@@ -316,7 +315,7 @@
       <option name="presentableId" value="Default" />
       <updated>1480258753831</updated>
       <workItem from="1480258756053" duration="2230000" />
-      <workItem from="1480794455438" duration="2658000" />
+      <workItem from="1480794455438" duration="2679000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1480795766107</created>
@@ -325,11 +324,18 @@
       <option name="project" value="LOCAL" />
       <updated>1480795766107</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="commit">
+      <created>1480926370847</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1480926370847</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4888000" />
+    <option name="totallyTimeSpent" value="4909000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1932" height="1047" extended-state="0" />
@@ -448,8 +454,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/stackarr.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1071">
-          <caret line="63" column="20" lean-forward="false" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
+        <state relative-caret-position="221">
+          <caret line="13" column="26" lean-forward="true" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
           <folding>
             <element signature="e#32#44#0" expanded="true" />
             <element signature="e#280#292#0" expanded="true" />
