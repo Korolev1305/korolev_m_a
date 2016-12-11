@@ -20,7 +20,7 @@ int main()
     cout << "Remove top number, write a new top number: 23" << endl;
     cout << a.top() << endl;
     cout << "Copy stack a in stack b" << endl;
-    StackList b{ a };
+    StackList b(a);
     b.print();
     cout << endl;
     cout << "add -45 45 in stack a. Write all stacks:" << endl;
@@ -63,7 +63,8 @@ int main()
     b.print();
     c.print();
     cout << "Copy stack b in d and write d" << endl;
-    StackList d(b);
+    StackList d;
+    d=b;
     d.print();
     return 0;
 }

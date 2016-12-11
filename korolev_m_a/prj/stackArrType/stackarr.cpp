@@ -7,14 +7,28 @@ StackArrT<T>::StackArrT(const StackArrT<T>& starr)
         , iTop{ starr.iTop }
         , data_{ new T[size_] }
 {
-    std::uninitialized_copy(starr.data_, starr.data_ + starr.iTop + 1, data_);
+    if (starr.size_ <= size_)
+    {
+        for (int i=0; i < starr.size_; ++i)
+            data_[i] = starr.data_[i];
+        iTop = starr.iTop;
+    }
+    else
+    {
+        T* newdata_ = new T[size_];
+        for (int i=0; i < size_; ++i)
+            newdata_[i] = starr.data_[i];
+        delete[] data_;
+        size_ = starr.size_;
+        iTop = starr.iTop;
+        data_=newdata_;
+    }
 }
 
 template<typename T>
 StackArrT<T>::~StackArrT()
 {
     delete[] data_;
-    data_ = nullptr;
 }
 
 template<typename T>
@@ -24,9 +38,9 @@ StackArrT<T>& StackArrT<T>::operator=(const StackArrT<T>& starr)
     {
         if (size_ < starr.size_)
         {
-            T* pNewData{ new T[starr.size_] };
+            T* newdata_{ new T[starr.size_] };
             delete[] data_;
-            data_ = pNewData;
+            data_ = newdata_;
         }
         std::uninitialized_copy(starr.data_, starr.data_ + starr.iTop + 1, data_);
         size_ = starr.size_;
