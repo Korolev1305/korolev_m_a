@@ -8,7 +8,7 @@
 class VectorField {
 public:
     VectorField() = default;
-    const static cv::Mat& VectorPlot(cv::Mat x, cv::Mat y, cv::Mat image);
+    const cv::Mat VectorPlot(cv::Mat x, cv::Mat y, cv::Mat image);
 };
 
 
