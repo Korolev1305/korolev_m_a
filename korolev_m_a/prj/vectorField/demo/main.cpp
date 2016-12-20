@@ -3,6 +3,20 @@
 using namespace cv;
 using namespace std;
 
+
+const RGB anotherColorTransmitter(double lengthOfVector, double angleOfVector, double maxLengthInField)
+{
+    double H, S, V;
+    H = 240;
+    S = (lengthOfVector * cos(angleOfVector) / maxLengthInField * 100);
+    V =  (lengthOfVector * sin(angleOfVector)) / maxLengthInField * 100;
+
+    HSV hsv(H, S, V);
+
+    RGB res = HSVToRGB(hsv);
+    return res;
+}
+
 int main()
 {
     VectorField vectorField;
@@ -28,7 +42,7 @@ int main()
             double x = (i-xSizeArrows/2);
             double y = (j-ySizeArrows/2);
 
-            arrX.at<double>(i,j) = x;
+            arrX.at<double>(i,j) = abs(x);
             arrY.at<double>(i,j) = y;
         }
     }
@@ -49,8 +63,13 @@ int main()
     namedWindow( "Arrows window", WINDOW_AUTOSIZE );
     imshow( "Arrows window", vectorField.plotByArrows(arrY, arrX, myStyle) );
 
-    namedWindow( "Color window", WINDOW_AUTOSIZE );
-    imshow( "Color window", vectorField.plotByColors(colorFi, colorL) );
+    namedWindow( "Basic color transmittion", WINDOW_AUTOSIZE );
+    imshow( "Basic color transmittion", vectorField.plotByColors(colorFi, colorL) );
+
+    namedWindow( "Another color transmittion", WINDOW_AUTOSIZE );
+    imshow( "Another color transmittion", vectorField.plotByColors(colorFi, colorL, &anotherColorTransmitter) );
+
+    bool externFResul = saveExampleVectorFieldMap("C:\\out.jpeg", 900);
 
     waitKey(0);
     return 0;

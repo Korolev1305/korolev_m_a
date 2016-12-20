@@ -1,6 +1,6 @@
 #include <opencv2/imgproc/types_c.h>
+#include <opencv2/imgproc.hpp>
 #include "vectorField.h"
-#include "hsv.h"
 
 const cv::Mat VectorField::plotByArrows(cv::Mat x, cv::Mat y, const Style& currentStyle, int cellSize)
 {
@@ -28,11 +28,41 @@ const cv::Mat VectorField::plotByArrows(cv::Mat x, cv::Mat y, const Style& curre
     return res;
 }
 
-const cv::Mat VectorField::plotByColors(cv::Mat angles, cv::Mat lengths, int cellSize)
+const cv::Mat VectorField::plotByColors(cv::Mat angles, cv::Mat lengths, std::function<const RGB(double, double, double)> colorTransmitter, int cellSize)
 {
     double imageH{cellSize * angles.rows};
     double imageW{cellSize * angles.cols};
 
+    cv::Mat image = cv::Mat(imageH, imageW, CV_8UC3);
+    cv::Mat res{image};
+
+    double minLength, maxLength;
+    cv::minMaxLoc(lengths, &minLength, &maxLength);
+
+    if(minLength < 0)
+    {
+        throw std::invalid_argument("Length of vector must not be negative");
+    }
+
+
+    for (int i = 0; i < angles.rows; ++i) {
+        for (int j = 0; j < angles.rows; ++j) {
+            RGB rgb(colorTransmitter(lengths.at<double>(i, j), angles.at<double>(i, j), maxLength));
+
+            CvPoint begin{i*cellSize , j*cellSize};
+            CvPoint end{begin.x + cellSize, begin.y + cellSize};
+
+            cv::rectangle(res, begin, end, CV_RGB(rgb.R, rgb.G, rgb.B), CV_FILLED);
+        }
+    }
+
+    return res;
+}
+
+const cv::Mat VectorField::plotByColors(cv::Mat angles, cv::Mat lengths, int cellSize)
+{
+    double imageH{cellSize * angles.rows};
+    double imageW{cellSize * angles.cols};
 
     cv::Mat image = cv::Mat(imageH, imageW, CV_8UC3);
     cv::Mat res{image};
@@ -75,4 +105,48 @@ const cv::Mat VectorField::plotByColors(cv::Mat angles, cv::Mat lengths, int cel
     }
 
     return res;
+}
+
+const RGB basicColorTransmitter(double lengthOfVector, double angleOfVector, double maxLengthInField)
+{
+    double H, S, V;
+    H = fmod((angleOfVector * 180 / CV_PI), 360);
+    S = (lengthOfVector * cos(angleOfVector) / maxLengthInField * 100);
+    V =  (lengthOfVector * sin(angleOfVector)) / maxLengthInField * 100;
+
+    HSV hsv(H, S, V);
+
+    RGB res = HSVToRGB(hsv);
+    return res;
+}
+
+bool saveExampleVectorFieldMap(const char *outputImagePath, int size)
+{
+    try {
+        using namespace cv;
+        Mat colorL(size, size, DataType<double >::type);
+        Mat colorFi(size, size, DataType<double>::type);
+        VectorField vf;
+
+        for (int i = 0; i < size; ++i) {
+            for (int j = 0; j < size; ++j) {
+                double x = (i-size/2);
+                double y = (j-size/2);
+
+                double l = (sqrt(x*x + y*y));
+                double fi = atan(y/x);
+
+                colorL.at<double>(i,j) = l;
+                colorFi.at<double>(i,j) = 2*fi + CV_PI;
+            }
+        }
+
+        imwrite(outputImagePath, vf.plotByColors(colorFi, colorL));
+        waitKey(0);
+
+        return true;
+
+    } catch (const std::exception& ex) {
+        return false;
+    }
 }
