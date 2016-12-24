@@ -66,10 +66,15 @@ int main()
     namedWindow( "Basic color transmittion", WINDOW_AUTOSIZE );
     imshow( "Basic color transmittion", vectorField.plotByColors(colorFi, colorL) );
 
-    namedWindow( "Another color transmittion", WINDOW_AUTOSIZE );
-    imshow( "Another color transmittion", vectorField.plotByColors(colorFi, colorL, &anotherColorTransmitter) );
+    cv::Mat blueImageCV{vectorField.plotByColors(colorFi, colorL, &anotherColorTransmitter)};
+    CvMat* blueImage = new CvMat(blueImageCV.operator CvMat());
 
-    bool externFResul = saveExampleVectorFieldMap("C:\\out.jpeg", 900);
+
+    namedWindow( "Another color transmittion", WINDOW_AUTOSIZE );
+    imshow( "Another color transmittion", blueImageCV);
+
+    showGrayscaledWithAName(blueImage, "this is \"C\"-style mangled func");
+    delete blueImage;
 
     waitKey(0);
     return 0;

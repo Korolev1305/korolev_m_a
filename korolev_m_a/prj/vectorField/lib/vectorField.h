@@ -4,7 +4,7 @@
 #include <iosfwd>
 #include <functional>
 #include "style.h"
-#import "hsv.h"
+#include "hsv.h"
 
 class VectorField {
 public:
@@ -16,6 +16,6 @@ public:
 
 const RGB basicColorTransmitter(double lengthOfVector, double angleOfVector, double maxLengthInField);
 
-extern "C" bool saveExampleVectorFieldMap(const char* outputImagePath, int size);
+extern "C" int showGrayscaledWithAName(const CvMat* inpMat, const char* windowName);
 
 #endif //VECTORFIELD_VECTORFIELD_H

@@ -25,6 +25,7 @@ const cv::Mat VectorField::plotByArrows(cv::Mat x, cv::Mat y, const Style& curre
         }
     }
 
+
     return res;
 }
 
@@ -111,8 +112,8 @@ const RGB basicColorTransmitter(double lengthOfVector, double angleOfVector, dou
 {
     double H, S, V;
     H = fmod((angleOfVector * 180 / CV_PI), 360);
-    S = (lengthOfVector * cos(angleOfVector) / maxLengthInField * 100);
-    V =  (lengthOfVector * sin(angleOfVector)) / maxLengthInField * 100;
+    S = abs(lengthOfVector * cos(angleOfVector) / maxLengthInField * 100);
+    V =  abs((lengthOfVector * sin(angleOfVector)) / maxLengthInField * 100);
 
     HSV hsv(H, S, V);
 
@@ -120,33 +121,24 @@ const RGB basicColorTransmitter(double lengthOfVector, double angleOfVector, dou
     return res;
 }
 
-bool saveExampleVectorFieldMap(const char *outputImagePath, int size)
+int showGrayscaledWithAName(const CvMat* inpMat, const char* windowName)
 {
     try {
         using namespace cv;
-        Mat colorL(size, size, DataType<double >::type);
-        Mat colorFi(size, size, DataType<double>::type);
-        VectorField vf;
 
-        for (int i = 0; i < size; ++i) {
-            for (int j = 0; j < size; ++j) {
-                double x = (i-size/2);
-                double y = (j-size/2);
+        cv::Mat greyMat;
+        cv::Mat colorMat(inpMat);
+        std::string winName{windowName};
 
-                double l = (sqrt(x*x + y*y));
-                double fi = atan(y/x);
+        cv::cvtColor(colorMat, greyMat, CV_BGR2GRAY);
 
-                colorL.at<double>(i,j) = l;
-                colorFi.at<double>(i,j) = 2*fi + CV_PI;
-            }
-        }
-
-        imwrite(outputImagePath, vf.plotByColors(colorFi, colorL));
+        namedWindow( winName, WINDOW_AUTOSIZE );
+        imshow( winName, greyMat);
         waitKey(0);
 
-        return true;
+        return 0;
 
     } catch (const std::exception& ex) {
-        return false;
+        return -1;
     }
 }
